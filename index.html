@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة التنسيق للكليات المصرية 2025</title>
+    
+    <!-- CDNs -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- React & ReactDOM -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js" crossorigin></script>
+    
+    <!-- Babel for JSX compilation locally -->
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* ==================== 1. تنسيقات الحاسبة الأساسية ==================== */
+        .tansik-dynamic-banner {
+            background: linear-gradient(135deg, var(--banner-primary), var(--banner-secondary));
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 0 auto 20px auto;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .tansik-new-feature {
+            animation: tansik-float 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(0,119,182,0.1), rgba(0,119,182,0.2));
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .tansik-new-feature:hover {
+            transform: scale(1.02) !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .tansik-new-feature::before {
+            content: "جديد";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+            padding: 3px 12px;
+            font-size: 13px;
+            border-radius: 20px;
+            font-weight: bold;
+            animation: tansik-bounce 1.2s ease infinite;
+            z-index: 1;
+            box-shadow: 0 2px 10px rgba(255,71,87,0.4);
+        }
+
+        .tansik-dynamic-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tansik-beta-badge {
+            background: linear-gradient(135deg, #ff6b81, #ff8e9e);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin: 0 8px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(255,107,129,0.3);
+        }
+
+        .tansik-arrow-icon {
+            margin-right: 10px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .tansik-banner-text {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .tansik-dynamic-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #E1306C, #C13584);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(225,48,108,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tansik-dynamic-icon:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .tansik-dynamic-message {
+            position: relative;
+            padding: 10px 40px 10px 60px;
+            text-align: center;
+        }
+
+        @keyframes tansik-float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes tansik-bounce {
+            0%, 100% { transform: translateY(0) rotate(-10deg); }
+            50% { transform: translateY(-5px) rotate(-10deg); }
+        }
+
+        .tansik-boys-mode {
+            --primary-color: #0077b6;
+            --secondary-color: #90e0ef;
+            --background-color: #f0f4f8;
+            --input-bg-color: #ffffff;
+            --border-color: #ced4da;
+            --highlight-color: #0077b6;
+            --success-color: #0077b6;
+            --exact-match-color: #9b59b6;
+            --button-color: #0077b6;
+            --boy-button-color: #0077b6;
+            --girl-button-color: #ff69b4;
+            --search-color: #f8f9fa;
+            --boy-college-color: #0077b6;
+            --girl-college-color: #ff69b4;
+            --college-color: #0077b6;
+            --college-item-bg: rgba(0, 119, 182, 0.1);
+            --result-bg: #f1f1f1;
+            --colleges-list-bg: #ffffff;
+            --banner-primary: #0077b6;
+            --banner-secondary: #004a7c;
+            --instagram-color: #E1306C;
+        }
+
+        .tansik-girls-mode {
+            --primary-color: #ff69b4;
+            --secondary-color: #ffb6c1;
+            --background-color: #fff5f9;
+            --input-bg-color: #fff0f5;
+            --border-color: #ffc0cb;
+            --highlight-color: #ff69b4;
+            --success-color: #ff69b4;
+            --exact-match-color: #9b59b6;
+            --button-color: #ff69b4;
+            --boy-button-color: #0077b6;
+            --girl-button-color: #ff69b4;
+            --search-color: #fff0f5;
+            --boy-college-color: #0077b6;
+            --girl-college-color: #ff69b4;
+            --college-color: #ff69b4;
+            --college-item-bg: rgba(255, 105, 180, 0.1);
+            --result-bg: #ffe6f0;
+            --colleges-list-bg: #fff0f5;
+            --banner-primary: #ff69b4;
+            --banner-secondary: #d44d8c;
+            --instagram-color: #C13584;
+        }
+
+        .tansik-not-available {
+            background-color: #f5f5f5;
+            color: #777;
+            border-left: 4px solid #999;
+            opacity: 0.9;
+        }
+
+        .tansik-not-available-message {
+            color: #a94442;
+            font-size: 14px;
+            margin-right: 10px;
+            font-style: italic;
+        }
+
+        body.tansik-page {
+            transition: all 0.5s ease;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .tansik-page h1, 
+        .tansik-page h2, 
+        .tansik-page h3 {
+            color: var(--primary-color);
+        }
+
+        .tansik-page a {
+            color: var(--primary-color);
+        }
+
+        .tansik-calculator-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0 auto;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+            min-height: 100vh;
+            max-width: 1200px;
+        }
+
+        .tansik-form-wrapper {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .tansik-calculator-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .tansik-toggle-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tansik-toggle-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            transform: scale(1);
+        }
+
+        .tansik-toggle-buttons .boys-btn {
+            background-color: var(--boy-button-color);
+            box-shadow: 0 4px 8px rgba(0, 119, 182, 0.2);
+        }
+
+        .tansik-toggle-buttons .girls-btn {
+            background-color: var(--girl-button-color);
+            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.2);
+        }
+
+        .tansik-toggle-buttons button.active {
+            outline: 3px solid gold;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .tansik-toggle-buttons button:not(.active):hover {
+            transform: scale(1.03);
+        }
+
+        .tansik-label {
+            display: block;
+            text-align: right;
+            font-weight: bold;
+            margin: 15px 0 5px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .tansik-input[type="number"],
+        .tansik-input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            background-color: var(--input-bg-color);
+        }
+
+        .tansik-input[readonly] {
+            background-color: var(--result-bg);
+            color: var(--primary-color);
+        }
+
+        .tansik-input[type="number"]:focus,
+        .tansik-input[type="text"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.2);
+        }
+
+        .tansik-result-percentage {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--highlight-color);
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .tansik-error-message {
+            color: red;
+            font-size: 15px;
+            margin-top: 10px;
+            display: none;
+            animation: tansik-shake 0.5s;
+        }
+
+        .tansik-search-container {
+            margin: 20px 0;
+        }
+
+        .tansik-college-search {
+            background-color: var(--search-color);
+            padding: 12px 20px;
+            font-size: 16px;
+        }
+
+        .tansik-colleges-list {
+            margin-top: 15px;
+            text-align: right;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: all 0.5s ease;
+            background-color: var(--colleges-list-bg);
+        }
+
+        .tansik-college-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+            animation: tansik-fadeIn 0.5s ease-out;
+            background-color: var(--college-item-bg);
+        }
+
+        .tansik-college-item:hover {
+            transform: translateX(-5px);
+        }
+
+        .tansik-college-name {
+            font-weight: bold;
+        }
+
+        .tansik-college-score {
+            margin-right: 10px;
+        }
+
+        .tansik-no-colleges {
+            color: #777;
+            font-style: italic;
+            padding: 20px;
+            animation: tansik-fadeIn 0.5s;
+        }
+
+        .tansik-highlight {
+            border-left: 4px solid var(--college-color);
+        }
+
+        .tansik-exact-match {
+            background-color: rgba(155, 89, 182, 0.2);
+            border-left: 4px solid var(--exact-match-color);
+            animation: tansik-pulse 2s infinite;
+        }
+
+        /* Animations */
+        @keyframes tansik-fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes tansik-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(155, 89, 182, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(155, 89, 182, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(155, 89, 182, 0); }
+        }
+
+        @keyframes tansik-shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        @keyframes tansik-modeSwitch {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .tansik-form-wrapper {
+                padding: 20px;
+            }
+            .tansik-input {
+                font-size: 16px;
+                padding: 12px;
+            }
+            .tansik-calculator-container h2 {
+                font-size: 22px;
+            }
+        }
+
+        /* ==================== 2. تنسيقات حاسبة الجامعات الأهلية ==================== */
+        body.tansik-university-mode {
+            background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+            color: #e2e8f0 !important;
+            transition: all 0.5s ease;
+        }
+
+        .uni-card {
+            transition: all 0.3s ease;
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .uni-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        .uni-calculator {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .uni-input-field {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .uni-input-field:focus {
+            border-color: #22d3ee;
+            box-shadow: 0 0 8px rgba(34, 211, 238, 0.6);
+        }
+
+        .uni-result-highlight {
+            animation: uni-pulse 2s infinite;
+        }
+
+        @keyframes uni-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .uni-college-card {
+            transition: transform 0.3s ease, box-shadow 0.1s ease;
+        }
+
+        .uni-college-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="tansik-boys-mode tansik-page">
+
+    <!-- ==================== 1. واجهة الحاسبة الأساسية ==================== -->
+    <div class="tansik-page-content" id="main-calculator-view">
+        <!-- البانر المتغير اللون -->
+        <div class="tansik-dynamic-banner tansik-new-feature" id="tansik-university-banner" title="اضغط للانتقال لحاسبة الجامعات الأهلية والخاصة">
+            <div class="tansik-dynamic-content">
+                <div class="tansik-dynamic-message">
+                    <span class="tansik-banner-text">
+                        الجامعات الأهلية والخاصة 
+                        <span class="tansik-beta-badge">نسخة تجريبية</span>
+                        <span class="tansik-arrow-icon">←</span>
+                    </span>
+                    <a href="https://www.instagram.com/abogrida_?igsh=MW1uY3VxNnVtMGJ3dQ%3D%3D&utm_source=qr" 
+                       class="tansik-dynamic-icon" 
+                       target="_blank"
+                       title="تابعنا على الإنستجرام"
+                       onclick="event.stopPropagation()">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tansik-calculator-container">
+            <div class="tansik-form-wrapper">
+                <h2>حاسبة التنسيق للكليات للبنين 2025</h2>
+
+                <!-- أزرار التبديل -->
+                <div class="tansik-toggle-buttons">
+                    <button class="girls-btn" onclick="tansikSwitchMode('girls')">تنسيق البنات</button>
+                    <button class="boys-btn active" onclick="tansikSwitchMode('boys')">تنسيق البنين</button>
+                </div>
+
+                <form id="tansik-grade-form">
+                    <label class="tansik-label" for="tansik-school-grade">درجة المدرسة (من 100)</label>
+                    <input class="tansik-input" type="number" id="tansik-school-grade" name="school_grade" min="0" max="100">
+                    <label class="tansik-label" for="tansik-aptitude-grade">درجة القدرات (من 100)</label>
+                    <input class="tansik-input" type="number" id="tansik-aptitude-grade" name="aptitude_grade" min="0" max="100">
+                    <label class="tansik-label" for="tansik-result">النتيجة النهائية</label>
+                    <input class="tansik-input" type="text" id="tansik-result" readonly placeholder="سيتم عرض النتيجة هنا">
+                    <div class="tansik-result-percentage"></div>
+                    <div id="tansik-error-message" class="tansik-error-message">الدرجة لا يمكن أن تتجاوز 100</div>
+                </form>
+
+                <!-- صندوق البحث -->
+                <div class="tansik-search-container">
+                    <input class="tansik-input tansik-college-search" type="text" id="tansik-college-search" placeholder="ابحث عن كلية...">
+                </div>
+
+                <div class="tansik-colleges-list" id="tansik-colleges-list">
+                    <!-- سيتم عرض الكليات هنا تلقائياً -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 2. واجهة حاسبة الجامعات الأهلية (مخفية افتراضياً) ==================== -->
+    <div id="university-view" style="display: none;">
+        <div id="university-root"></div>
+    </div>
+
+    <!-- ==================== 3. أكواد منطق الجافا سكريبت ==================== -->
+    <!-- كود الجافا سكريبت الأساسي للحاسبة العامة والتحكم بالتبديل -->
+    <script>
+        // تعريف دوال التبديل العامة قبل استدعاء ملف script
+        window.showUniversityCalculator = function() {
+            document.getElementById('main-calculator-view').style.display = 'none';
+            document.getElementById('university-view').style.display = 'block';
+            document.body.className = 'tansik-university-mode';
+            window.scrollTo(0, 0);
+        };
+
+        window.showMainCalculator = function() {
+            document.getElementById('university-view').style.display = 'none';
+            document.getElementById('main-calculator-view').style.display = 'block';
+            document.body.className = `tansik-${tansikCurrentMode}-mode tansik-page`;
+            window.scrollTo(0, 0);
+        };
+    </script>
+
+    <!-- تضمين الكود المدمج لـ script.js الأساسي -->
+    <script>
+        // بيانات الكليات الأساسية
+        const tansikCollegesData = {
+          boys: [
+            { name: "طب القاهرة", score: 410.000000 },
+            { name: "طب أسنان القاهرة", score: 410.000000 },
+            { name: "طب الإسكندرية", score: 410.000000 },
+            { name: "طب أسنان الإسكندرية", score: 410.000000 },
+            { name: "طب عين شمس", score: 410.000000 },
+            { name: "طب أسنان عين شمس", score: 410.000000 },
+            { name: "طب سوهاج", score: 410.000000 },
+            { name: "طب الفيوم", score: 410.000000 },
+            { name: "طب أسيوط", score: 410.000000 },
+            { name: "طب طنطا", score: 410.000000 },
+            { name: "طب أسنان طنطا", score: 410.000000 },
+            { name: "طب المنصورة", score: 410.000000 },
+            { name: "طب أسنان المنصورة", score: 410.000000 },
+            { name: "طب الزقازيق", score: 410.000000 },
+            { name: "طب المنوفية بشبين الكوم", score: 410.000000 },
+            { name: "طب بنها", score: 410.000000 },
+            { name: "طب بني سويف", score: 410.000000 },
+            { name: "طب المنيا", score: 410.000000 },
+            { name: "طب أسنان السويس", score: 410.000000 },
+            { name: "طب فاقوس", score: 410.000000 },
+            { name: "طب أسنان المنوفية", score: 410.000000 },
+            { name: "طب دمياط", score: 410.000000 },
+            { name: "طب الأقصر", score: 410.000000 },
+            { name: "طب كفر الشيخ", score: 410.000000 },
+            { name: "طب حلوان", score: 409.975882 },
+            { name: "طب قناة السويس بالإسماعيلية", score: 409.975882 },
+            { name: "طب بورسعيد", score: 409.975882 },
+            { name: "طب السويس", score: 409.951765 },
+            { name: "طب الوادي الجديد", score: 409.927647 },
+            { name: "طب جنوب الوادي", score: 409.927647 },
+            { name: "طب العريش", score: 409.886111 },
+            { name: "طب أسوان", score: 409.884771 },
+            { name: "طب أسنان الزقازيق", score: 409.879412 },
+            { name: "طب أسنان قناة السويس بالإسماعيلية", score: 409.871875 },
+            { name: "طب أسنان الفيوم", score: 409.863333 },
+            { name: "طب أسنان كفر الشيخ", score: 409.833856 },
+            { name: "طب أسنان بني سويف", score: 409.807059 },
+            { name: "طب أسنان أسيوط", score: 409.790980 },
+            { name: "طب أسنان المنيا", score: 409.766863 },
+            { name: "طب أسنان جنوب الوادي", score: 409.758824 },
+            { name: "علاج طبيعي القاهرة", score: 409.651215 },
+            { name: "علاج طبيعي كفر الشيخ", score: 409.631871 },
+            { name: "صيدلة القاهرة", score: 409.468072 },
+            { name: "علاج طبيعي بورسعيد", score: 409.452328 },
+            { name: "علاج طبيعي بنها", score: 409.359375 },
+            { name: "علاج طبيعي السويس", score: 409.281830 },
+            { name: "علاج طبيعي قناة السويس", score: 409.276471 },
+            { name: "علاج طبيعي بني سويف", score: 408.546242 },
+            { name: "صيدلة و تصنيع دوائي كفر الشيخ", score: 407.950000 },
+            { name: "كلية الهندسة جامعة دمنهور", score: 407.950000 },
+            { name: "حاسبات و ذكاء إصطناعي القاهرة رياضة", score: 407.950000 },
+            { name: "صيدلة المنصورة", score: 407.950000 },
+            { name: "هندسة المنصورة", score: 407.950000 },
+            { name: "صيدلة الزقازيق", score: 407.950000 },
+            { name: "صيدلة المنوفية", score: 407.950000 },
+            { name: "صيدلة عين شمس", score: 407.950000 },
+            { name: "صيدلة طنطا", score: 407.950000 },
+            { name: "صيدلة أسيوط", score: 407.950000 },
+            { name: "صيدلة جنوب الوادي", score: 407.950000 },
+            { name: "صيدلة المنيا", score: 407.950000 },
+            { name: "صيدلة حلوان", score: 407.950000 },
+            { name: "هندسة بترول وتعدين السويس", score: 407.950000 },
+            { name: "صيدلة بني سويف", score: 407.950000 },
+            { name: "صيدلة قناة السويس بالإسماعيلية", score: 407.950000 },
+            { name: "هندسة القاهرة", score: 407.950000 },
+            { name: "صيدلة الإسكندرية", score: 407.950000 },
+            { name: "هندسة الإسكندرية", score: 407.950000 },
+            { name: "صيدلة الفيوم", score: 407.950000 },
+            { name: "صيدلة دمنهور", score: 407.950000 },
+            { name: "علاج طبيعي جنوب الوادي", score: 407.950000 },
+            { name: "صيدلة بورسعيد", score: 407.925882 },
+            { name: "صيدلة مدينة السادات", score: 407.925882 },
+            { name: "هندسة الزقازيق", score: 407.880327 },
+            { name: "صيدلة ج الوادي الجديد", score: 407.877647 },
+            { name: "صيدلة سوهاج", score: 407.829412 },
+            { name: "هندسة عين شمس", score: 407.805294 },
+            { name: "هندسة إلكترونية المنوفية بمنوف", score: 407.777827 },
+            { name: "هندسة بني سويف", score: 407.684706 },
+            { name: "هندسة كفر الشيخ", score: 407.507843 },
+            { name: "هندسة بنها بشبرا", score: 407.440850 },
+            { name: "حاسبات و علوم البيانات الإسكندرية رياضة", score: 407.225131 },
+            { name: "هندسة طنطا", score: 406.882292 },
+            { name: "هندسة الطاقة أسوان", score: 406.687843 },
+            { name: "هندسة بنها", score: 405.900000 },
+            { name: "هندسة دمياط", score: 405.900000 },
+            { name: "هندسة حلوان بالمطرية", score: 405.900000 },
+            { name: "هندسة حلوان", score: 405.900000 },
+            { name: "هندسة المنوفية بشبين الكوم", score: 405.900000 },
+            { name: "هندسة المنيا", score: 405.900000 },
+            { name: "هندسة بور سعيد", score: 405.900000 },
+            { name: "هندسة أسيوط", score: 405.900000 },
+            { name: "حاسبات ومعلومات عين شمس رياضة", score: 405.900000 },
+            { name: "حاسبات ومعلومات المنصورة رياضة", score: 405.900000 },
+            { name: "طب بيطري عين شمس", score: 405.900000 },
+            { name: "طب بيطري القاهرة", score: 405.900000 },
+            { name: "هندسة الفيوم", score: 405.854444 },
+            { name: "حاسبات و ذكاء إصطناعي حلوان رياضة", score: 405.827647 },
+            { name: "هندسة قناة السويس بالإسماعيلية", score: 405.803529 },
+            { name: "هندسة السويس", score: 405.729167 },
+            { name: "هندسة جنوب الوادي", score: 405.682271 },
+            { name: "هندسة أسوان", score: 405.586471 },
+            { name: "هندسة سوهاج", score: 404.262010 },
+            { name: "تخطيط عمراني القاهرة", score: 403.850000 },
+            { name: "علوم البترول والتعدين مطروح", score: 403.850000 },
+            { name: "حاسبات ومعلومات الزقازيق رياضة", score: 403.850000 },
+            { name: "حاسبات ومعلومات المنوفية بشبين الكوم رياضة", score: 403.850000 },
+            { name: "طب بيطري المنيا", score: 403.850000 },
+            { name: "حاسبات ومعلومات دمياط رياضة", score: 403.850000 },
+            { name: "حاسبات ومعلومات دمنهور بالنوبارية رياضة", score: 403.850000 },
+            { name: "الذكاء الاصطناعى كفر الشيخ رياضة", score: 403.850000 },
+            { name: "حاسبات ومعلومات طنطا رياضة", score: 403.850000 },
+            { name: "طب بيطري المنوفية", score: 403.168676 },
+            { name: "المعهد التكنولوجي العالي بالسادس من أكتوبر", score: 401.800000 },
+            { name: "ذكاء إصطناعي المنوفية شبين الكوم رياضة", score: 401.800000 },
+            { name: "علوم البترول والتعدين مطروح - علوم", score: 401.800000 },
+            { name: "حاسبات و ذكاء إصطناعي بنها رياضة", score: 401.800000 },
+            { name: "حاسبات ومعلومات كفر الشيخ رياضة", score: 401.800000 },
+            { name: "طب بيطري الإسكندرية", score: 401.800000 },
+            { name: "حاسبات ومعلومات الفيوم رياضة", score: 401.488815 },
+            { name: "المعهد العالى للهندسة والتكنولوجيا الحديثة بالمرج", score: 401.380286 },
+            { name: "ألسن كفر الشيخ", score: 401.087190 },
+            { name: "معهد الإسكندرية العالي للتكنولوجيا بسموحة بمصروفات", score: 401.079820 },
+            { name: "حاسبات ومعلومات المنيا رياضة", score: 401.078145 },
+            { name: "حاسبات وذكاء اصطناعي السادات رياضة", score: 399.750000 },
+            { name: "حاسبات ومعلومات السويس رياضة", score: 399.750000 },
+            { name: "معهد عالي هندسة وتكنولوجيا المنيا الجديدة", score: 399.750000 },
+            { name: "حاسبات ومعلومات قناة السويس بالإسماعيلية رياضة", score: 399.750000 },
+            { name: "المعهد الكندى العالى للهندسة 6 اكتوبر", score: 399.750000 },
+            { name: "حاسبات ومعلومات بني سويف رياضة", score: 399.750000 },
+            { name: "حاسبات و ذكاء إصطناعي جنوب الوادي فرع الغردقة رياضة", score: 399.750000 },
+            { name: "حاسبات ومعلومات العريش رياضة", score: 399.307843 },
+            { name: "الملاحة وتكنولوجيا الفضاء بني سويف", score: 399.015082 },
+            { name: "حاسبات وذكاء اصطناعي مطروح رياضة", score: 397.700000 },
+            { name: "طب بيطري بنها", score: 397.700000 },
+            { name: "حاسبات ومعلومات أسيوط رياضة", score: 397.181806 },
+            { name: "إعلام القاهرة", score: 396.944649 },
+            { name: "العلوم الصحية التطبيقية المنوفية", score: 396.530294 },
+            { name: "حاسبات ومعلومات الأقصر رياضة", score: 396.269271 },
+            { name: "حاسبات ومعلومات سوهاج رياضة", score: 395.650000 },
+            { name: "حاسبات ومعلومات قنا رياضة", score: 393.927263 },
+            { name: "معهد عالي هندسه 6 اكتوبر بمصروفات", score: 393.600000 },
+            { name: "طب بيطري الزقازيق", score: 393.600000 },
+            { name: "اقتصاد وعلوم سياسية القاهرة", score: 393.479077 },
+            { name: "الأكاديمية الدولية لعلوم الإعلام (شعبة هندسة )6اكتوبر", score: 393.254314 },
+            { name: "طب بيطري المنصورة", score: 391.804575 },
+            { name: "الدراسات الاقتصادية والعلوم السياسية الإسكندرية", score: 391.550000 },
+            { name: "طب بيطري كفر الشيخ", score: 391.550000 },
+            { name: "كلية تكنولوجيا الصناعة و الطاقة بالقاهرة جامعة مصر الدولية التكنولوجية", score: 391.550000 },
+            { name: "طب بيطري أسوان", score: 387.450000 },
+            { name: "طب بيطري أسيوط", score: 387.450000 },
+            { name: "معهد تكنولوجي عالي العاشر من رمضان شعبة (هندسة) بمصروفات", score: 387.358889 },
+            { name: "الاكاديمية المصرية للهندسة والتكنولوجيا المتقدمة وزارة الانتاج الحربى", score: 387.262418 },
+            { name: "أكاديمية أخبار اليوم شعبة هندسية 6 أكتوبر", score: 385.400000 },
+            { name: "سياسة واقتصاد السويس", score: 385.400000 },
+            { name: "طب بيطري قناة السويس بالإسماعيلية", score: 385.400000 },
+            { name: "معهد المنصورة العالى للهندسة والتكنولوجيا", score: 385.400000 },
+            { name: "إعلام عين شمس", score: 385.400000 },
+            { name: "طب بيطري دمنهور", score: 384.029984 },
+            { name: "العالي للهندسة والتكنولوجيا التجمع الخامس", score: 383.350000 },
+            { name: "طب بيطري العريش", score: 383.350000 },
+            { name: "طب بيطري مدينة السادات", score: 381.300000 },
+            { name: "الاهرامات العالي للهندسة والتكنولوجيا -6 اكتوبر", score: 380.345343 },
+            { name: "طب بيطري الوادي الجديد", score: 380.335294 },
+            { name: "ألسن قناة السويس بالإسماعيلية", score: 379.250000 },
+            { name: "معهد هندسة وتكنولوجيا الطيران إمبابة جيزة بمصروفات", score: 379.058399 },
+            { name: "معهد العبور العالي للهندسه والتكنولوجيا بمصروفات", score: 379.032941 },
+            { name: "طب بيطري جنوب الوادي", score: 377.410694 },
+            { name: "العلوم الصحية التطبيقية بني سويف", score: 377.200000 },
+            { name: "معهد المستقبل العالى للهندسة والتكنولوجيا بالفيوم", score: 375.190196 },
+            { name: "طب بيطري سوهاج", score: 375.150000 },
+            { name: "ألسن عين شمس", score: 374.427141 },
+            { name: "المعهد العالى للهندسه والتكنولوجيا بالمنزلة", score: 373.678824 },
+            { name: "طب بيطري بني سويف", score: 373.384722 },
+            { name: "كلية تكنولوجيا الصناعة والطاقة 6 أكتوبر التكنولوجية", score: 371.050000 },
+            { name: "تمريض المنصورة", score: 371.050000 },
+            { name: "تمريض القاهرة", score: 371.050000 },
+            { name: "المعهد العالي للهندسة والتكنولوجيا بدمياط الجديدة", score: 371.050000 },
+            { name: "طب بيطري مطروح", score: 369.000000 },
+            { name: "المصرية الصينية للتكنولوجيا قناة السويس بالإسماعيلية", score: 368.083529 },
+            { name: "المعهد العالى للهندسة والتكنولوجيا بطنطا", score: 367.351291 },
+            { name: "ألسن الفيوم", score: 367.066234 },
+            { name: "معهد عالي هندسه مدينه الشروق بمصروفات", score: 362.850000 },
+            { name: "معهد أكتوبر العالي للهندسه والتكنولوجيا م 6 اكتوبر بمصروفات", score: 361.974479 },
+            { name: "حقوق المنيا", score: 360.800000 },
+            { name: "كلية تكنولوجيا العلوم الصحية 6 أكتوبر التكنولوجية", score: 360.800000 },
+            { name: "تمريض حلوان", score: 360.800000 },
+            { name: "تمريض دمياط", score: 359.504514 },
+            { name: "مصر العالي هندسة وتكنولوجيا منصورة", score: 358.845801 },
+            { name: "أكاديمية أخبار اليوم 6اكتوبر شعبة علوم حاسب", score: 358.219412 },
+            { name: "معهد طيبة العالي للهندسه بالمعادى بمصروفات", score: 356.700000 },
+            { name: "تجارة انتساب موجه الزقازيق", score: 356.700000 },
+            { name: "تمريض بور سعيد", score: 356.700000 },
+            { name: "تكنولوجيا الإدارة ونظم المعلومات بورسعيد", score: 356.495000 },
+            { name: "عالي إدارة وتكنولوجيا ش علوم حاسب كفر الشيخ", score: 354.650000 },
+            { name: "كلية تكنولوجيا الصناعة والطاقة 6 أكتوبر التكنولوجية علوم", score: 352.600000 },
+            { name: "معهد عالي هندسة وتكنولوجيا العريش", score: 352.429167 },
+            { name: "التكنولوجيا والتعليم الصناعي حلوان", score: 352.343750 },
+            { name: "كلية تكنولوجيا الصناعة والطاقة ج القاهرة الجديدة التكنولوجية", score: 350.550000 },
+            { name: "معهد عالي كندي تكنولوجيا هندسة ت.خامس", score: 350.550000 },
+            { name: "المعهد العالى للهندسة والتكنولوجيا ببرج العرب بالاسكندرية", score: 350.379167 },
+            { name: "المعهد العالى للهندسة والتكنولوجيا بالزقازيق", score: 349.852431 },
+            { name: "معهد الدلتا العالي للهندسة والتكنولوجيا بالمنصورة", score: 348.638007 },
+            { name: "كلية تكنولوجيا العلوم الصحية برج العرب التكنولوجية", score: 348.500000 },
+            { name: "تجارة انتساب موجه قناة السويس بالإسماعيلية", score: 348.500000 },
+            { name: "المعهد الكندي العالي للحاسب الآلي بالتجمع الخامس القاهرة الجديدة", score: 348.042770 },
+            { name: "المعهد العالى للهندسة والتكنولوجيا بالمحلة الكبرى", score: 346.450000 },
+            { name: "تمريض عين شمس", score: 344.400000 },
+            { name: "تجارة انتساب موجه الإسكندرية", score: 344.400000 },
+            { name: "ألسن بني سويف", score: 344.400000 },
+            { name: "المعهد العالي للهندسة والتكنولوجيا بالبحيرة", score: 344.400000 },
+            { name: "علوم القاهرة", score: 339.058611 },
+            { name: "المعهد العالي للهندسة بمدينة 15 مايو", score: 338.250000 },
+            { name: "معهد المستقبل العالى للهندسة والتكنولوجيا بالمنصورة", score: 338.250000 },
+            { name: "المعهد العالى للهندسة والتكنولوجيا بالمنوفية", score: 338.250000 },
+            { name: "معهد المدينة العالي للهندسة والتكنولوجيا طريق سقارة الهرم", score: 338.032606 },
+            { name: "تمريض طنطا", score: 336.832083 },
+            { name: "القاهرة العالي ش هندسية بالتجمع اول القاهرة الجديدة", score: 335.875752 },
+            { name: "تجارة انتساب موجه القاهرة", score: 331.955294 },
+            { name: "تمريض الإسكندرية", score: 325.950000 },
+            { name: "تجارة انتساب موجه المنصورة", score: 324.768235 },
+            { name: "معهد راية العالي للإدارة والتجارة الخارجية شعبة نظم معلومات", score: 324.339477 },
+            { name: "تمريض المنوفية بشبين الكوم", score: 318.793758 },
+            { name: "المعهد العالي للهندسة والتكنولوجيا بكنج مريوط", score: 316.251356 },
+            { name: "المعهد الكندي العالي للحاسب الآلي بالتجمع الخامس", score: 315.508734 },
+            { name: "معهد النيل العالي للهندسة والتكنولوجيا بالمنصورة", score: 315.261863 },
+            { name: "معهد عالي هندسة وتكنولوجيا كفر الشيخ", score: 314.855547 },
+            { name: "معهد عالي تكنولوجيا 10 رمضان شعبة علوم الحاسب بمصروفات", score: 312.197723 },
+            { name: "الفراعنة العالي إدارة أعمال", score: 311.449935 },
+            { name: "معهد الوادي العالي للهندسة والتكنولوجيا قليوبية", score: 309.485351 },
+            { name: "معهد الإسكندرية العالي للإعلام بسموحة", score: 303.405359 },
+            { name: "المجمع التكنولوجي المتكامل بالسلام", score: 300.710205 },
+            { name: "تجارة القاهرة", score: 299.602475 },
+            { name: "ع. هندسة وتكنولوجيا العبور ك21 طريق بلبيس الصحراوي", score: 298.275000 },
+            { name: "حقوق انتساب موجه القاهرة", score: 295.888693 },
+            { name: "المعهد العالي للهندسة ببلبيس", score: 288.921708 },
+            { name: "تجارة انتساب موجه دمياط", score: 288.025000 },
+            { name: "المعهد التكنولوجي العالي ببني سويف", score: 286.098938 },
+            { name: "المعهد العالي للهندسة والتكنولوجيا بالطود الأقصر", score: 283.336462 },
+            { name: "تجارة انتساب موجه كفر الشيخ", score: 275.672075 },
+            { name: "أداب انتساب موجه المنصورة", score: 267.483185 }
+          ],
+          girls: [
+            { name: "طب القاهرة", score: 410.000000 },
+            { name: "طب أسنان القاهرة", score: 410.000000 },
+            { name: "طب الإسكندرية", score: 410.000000 },
+            { name: "طب أسنان الإسكندرية", score: 410.000000 },
+            { name: "صيدلة الإسكندرية", score: 410.000000 },
+            { name: "طب عين شمس", score: 410.000000 },
+            { name: "طب أسنان عين شمس", score: 410.000000 },
+            { name: "طب سوهاج", score: 410.000000 },
+            { name: "طب الفيوم", score: 410.000000 },
+            { name: "طب أسنان جنوب الوادي", score: 410.000000 },
+            { name: "طب أسيوط", score: 410.000000 },
+            { name: "طب طنطا", score: 410.000000 },
+            { name: "طب أسنان طنطا", score: 410.000000 },
+            { name: "طب المنصورة", score: 410.000000 },
+            { name: "طب أسنان المنصورة", score: 410.000000 },
+            { name: "طب الزقازيق", score: 410.000000 },
+            { name: "طب أسنان قناة السويس بالإسماعيلية", score: 410.000000 },
+            { name: "طب قناة السويس بالإسماعيلية", score: 410.000000 },
+            { name: "طب المنوفية بشبين الكوم", score: 410.000000 },
+            { name: "طب بنها", score: 410.000000 },
+            { name: "طب بني سويف", score: 410.000000 },
+            { name: "طب المنيا", score: 410.000000 },
+            { name: "طب أسنان المنيا", score: 410.000000 },
+            { name: "إعلام المنوفية", score: 410.000000 },
+            { name: "طب فاقوس", score: 410.000000 },
+            { name: "طب دمياط", score: 410.000000 },
+            { name: "طب جنوب الوادي", score: 410.000000 },
+            { name: "طب كفر الشيخ", score: 410.000000 },
+            { name: "طب أسنان المنوفية", score: 409.975882 },
+            { name: "صيدلة المنيا", score: 409.975882 },
+            { name: "طب حلوان", score: 409.975882 },
+            { name: "طب أسنان كفر الشيخ", score: 409.975882 },
+            { name: "طب بورسعيد", score: 409.975882 },
+            { name: "طب السويس", score: 409.954444 },
+            { name: "علاج طبيعي القاهرة", score: 409.951765 },
+            { name: "طب العريش", score: 409.951765 },
+            { name: "طب الأقصر", score: 409.951765 },
+            { name: "طب أسوان", score: 409.948761 },
+            { name: "طب الوادي الجديد", score: 409.948750 },
+            { name: "طب أسنان الفيوم", score: 409.930327 },
+            { name: "طب أسنان الزقازيق", score: 409.930327 },
+            { name: "طب أسنان السويس", score: 409.927647 },
+            { name: "طب أسنان أسيوط", score: 409.927647 },
+            { name: "طب أسنان بني سويف", score: 409.908889 },
+            { name: "علاج طبيعي قناة السويس", score: 409.906209 },
+            { name: "علاج طبيعي بنها", score: 409.906209 },
+            { name: "صيدلة دمنهور", score: 409.906209 },
+            { name: "علاج طبيعي السويس", score: 409.903529 },
+            { name: "صيدلة المنصورة", score: 409.903194 },
+            { name: "صيدلة طنطا", score: 409.900515 },
+            { name: "صيدلة القاهرة", score: 409.897500 },
+            { name: "علاج طبيعي بني سويف", score: 409.882092 },
+            { name: "علاج طبيعي كفر الشيخ", score: 409.882092 },
+            { name: "علاج طبيعي بورسعيد", score: 409.879412 },
+            { name: "صيدلة حلوان", score: 409.879412 },
+            { name: "صيدلة عين شمس", score: 409.876397 },
+            { name: "علاج طبيعي جنوب الوادي", score: 409.836536 },
+            { name: "صيدلة و تصنيع دوائي كفر الشيخ", score: 409.829167 },
+            { name: "صيدلة الزقازيق", score: 409.807059 },
+            { name: "صيدلة قناة السويس بالإسماعيلية", score: 409.782941 },
+            { name: "صيدلة المنوفية", score: 409.782941 },
+            { name: "صيدلة بورسعيد", score: 409.758824 },
+            { name: "صيدلة الفيوم", score: 409.728676 },
+            { name: "صيدلة أسيوط", score: 409.721307 },
+            { name: "صيدلة مدينة السادات", score: 409.673072 },
+            { name: "صيدلة بني سويف", score: 409.658333 },
+            { name: "صيدلة سوهاج", score: 409.571242 },
+            { name: "صيدلة جنوب الوادي", score: 409.570572 },
+            { name: "صيدلة ج الوادي الجديد", score: 409.541765 },
+            { name: "كلية الهندسة جامعة دمنهور", score: 407.950000 },
+            { name: "هندسة الطاقة أسوان", score: 407.950000 },
+            { name: "هندسة جنوب الوادي", score: 407.950000 },
+            { name: "هندسة المنيا", score: 407.950000 },
+            { name: "هندسة بترول وتعدين السويس", score: 407.950000 },
+            { name: "هندسة أسيوط", score: 407.950000 },
+            { name: "هندسة الإسكندرية", score: 407.950000 },
+            { name: "طب بيطري الإسكندرية", score: 407.950000 },
+            { name: "هندسة عين شمس", score: 407.950000 },
+            { name: "هندسة إلكترونية المنوفية بمنوف", score: 407.950000 },
+            { name: "هندسة القاهرة", score: 407.950000 },
+            { name: "طب بيطري القاهرة", score: 407.950000 },
+            { name: "هندسة كفر الشيخ", score: 407.950000 },
+            { name: "هندسة دمياط", score: 407.950000 },
+            { name: "هندسة السويس", score: 407.950000 },
+            { name: "هندسة الزقازيق", score: 407.950000 },
+            { name: "حاسبات و ذكاء إصطناعي القاهرة رياضة", score: 407.950000 },
+            { name: "هندسة المنصورة", score: 407.950000 },
+            { name: "هندسة طنطا", score: 407.950000 },
+            { name: "هندسة بني سويف", score: 407.950000 },
+            { name: "هندسة المنوفية بشبين الكوم", score: 407.925882 },
+            { name: "العلوم الصحية التطبيقية المنوفية", score: 407.858889 },
+            { name: "هندسة بنها", score: 407.836111 },
+            { name: "هندسة بنها بشبرا", score: 407.821875 },
+            { name: "هندسة قناة السويس بالإسماعيلية", score: 407.813333 },
+            { name: "هندسة حلوان", score: 407.804959 },
+            { name: "هندسة الفيوم", score: 407.796250 },
+            { name: "هندسة حلوان بالمطرية", score: 407.705139 },
+            { name: "هندسة بور سعيد", score: 407.684706 },
+            { name: "هندسة أسوان", score: 407.566127 },
+            { name: "طب بيطري كفر الشيخ", score: 407.472672 },
+            { name: "طب بيطري عين شمس", score: 407.454248 },
+            { name: "هندسة سوهاج", score: 406.505621 },
+            { name: "تخطيط عمراني القاهرة", score: 405.900000 },
+            { name: "معهد العبور العالي للهندسه والتكنولوجيا بمصروفات", score: 405.900000 },
+            { name: "حاسبات ومعلومات المنيا رياضة", score: 405.900000 },
+            { name: "حاسبات و علوم البيانات الإسكندرية رياضة", score: 405.900000 },
+            { name: "حاسبات ومعلومات دمياط رياضة", score: 405.900000 },
+            { name: "ألسن كفر الشيخ", score: 405.900000 },
+            { name: "طب بيطري المنصورة", score: 405.900000 },
+            { name: "حاسبات و ذكاء إصطناعي حلوان رياضة", score: 405.900000 },
+            { name: "حاسبات ومعلومات عين شمس رياضة", score: 405.900000 },
+            { name: "فنون جميلة (عمارة) المنصورة", score: 405.900000 },
+            { name: "حاسبات ومعلومات المنصورة رياضة", score: 405.900000 },
+            { name: "طب بيطري المنوفية", score: 405.900000 },
+            { name: "الذكاء الاصطناعى كفر الشيخ رياضة", score: 405.609918 },
+            { name: "حاسبات ومعلومات الزقازيق رياضة", score: 405.575752 },
+            { name: "حاسبات ومعلومات دمنهور بالنوبارية رياضة", score: 405.571397 },
+            { name: "دار العلوم أسوان", score: 405.335580 },
+            { name: "العلوم الصحية التطبيقية بني سويف", score: 404.924575 },
+            { name: "طب بيطري دمنهور", score: 404.715221 },
+            { name: "فنون جميلة (عمارة) حلوان", score: 403.850000 },
+            { name: "حاسبات و ذكاء إصطناعي بنها رياضة", score: 403.850000 },
+            { name: "فنون جميلة (عمارة) الإسكندرية", score: 403.850000 },
+            { name: "حاسبات ومعلومات المنوفية بشبين الكوم رياضة", score: 403.850000 },
+            { name: "طب بيطري الزقازيق", score: 403.850000 },
+            { name: "حاسبات ومعلومات سوهاج رياضة", score: 403.850000 },
+            { name: "حاسبات ومعلومات طنطا رياضة", score: 403.801765 },
+            { name: "طب بيطري بنها", score: 403.756209 },
+            { name: "حاسبات ومعلومات كفر الشيخ رياضة", score: 403.602794 },
+            { name: "حاسبات و ذكاء إصطناعي جنوب الوادي فرع الغردقة رياضة", score: 403.519722 },
+            { name: "حاسبات وذكاء اصطناعي السادات رياضة", score: 403.025980 },
+            { name: "ذكاء إصطناعي المنوفية شبين الكوم رياضة", score: 401.992188 },
+            { name: "حاسبات و معلومات العريش رياضة", score: 401.800000 },
+            { name: "حاسبات وذكاء اصطناعي مطروح رياضة", score: 401.800000 },
+            { name: "ألسن عين شمس", score: 401.800000 },
+            { name: "المعهد العالى للهندسة والتكنولوجيا بكنج مريوط", score: 401.800000 },
+            { name: "حاسبات ومعلومات قناة السويس بالإسماعيلية رياضة", score: 401.800000 },
+            { name: "حاسبات ومعلومات السويس رياضة", score: 401.649265 },
+            { name: "إعلام القاهرة", score: 401.633521 },
+            { name: "حاسبات ومعلومات الفيوم رياضة", score: 401.293529 },
+            { name: "ألسن قناة السويس بالإسماعيلية", score: 400.942484 },
+            { name: "إعلام عين شمس", score: 400.804812 },
+            { name: "المعهد العالى للهندسة والتكنولوجيا بالزقازيق", score: 399.750000 },
+            { name: "حاسبات ومعلومات أسيوط رياضة", score: 399.750000 },
+            { name: "حاسبات ومعلومات الأقصر رياضة", score: 399.564667 },
+            { name: "فنون جميلة (عمارة) أسيوط", score: 399.449869 },
+            { name: "حاسبات ومعلومات قنا رياضة", score: 399.417377 },
+            { name: "تمريض طنطا", score: 398.481144 },
+            { name: "طب بيطري أسوان", score: 397.700000 },
+            { name: "ألسن الفيوم", score: 397.700000 },
+            { name: "علوم البترول والتعدين مطروح", score: 397.700000 },
+            { name: "اقتصاد وعلوم سياسية القاهرة", score: 397.700000 },
+            { name: "علوم القاهرة", score: 397.346275 },
+            { name: "علوم البترول والتعدين مطروح - علوم", score: 397.076626 },
+            { name: "ألسن أسوان", score: 395.650000 },
+            { name: "طب بيطري مدينة السادات", score: 395.650000 },
+            { name: "طب بيطري المنيا", score: 395.650000 },
+            { name: "معهد الصفوة العالي هندسة وتكنولوجيا بالقليوبية", score: 395.429592 },
+            { name: "كلية تكنولوجيا الصناعة و الطاقة بالقاهرة جامعة مصر الدولية التكنولوجية", score: 395.393750 },
+            { name: "الدراسات الاقتصادية والعلوم السياسية الإسكندرية", score: 395.309338 },
+            { name: "طب بيطري أسيوط", score: 394.326042 },
+            { name: "المجمع التكنولوجي المتكامل بالسلام", score: 393.600000 },
+            { name: "ألسن الأقصر", score: 393.600000 },
+            { name: "فنون جميلة (عمارة) المنيا", score: 393.508889 },
+            { name: "ألسن بني سويف", score: 393.192010 },
+            { name: "معهد أكتوبر العالي للهندسه والتكنولوجيا م 6 اكتوبر بمصروفات", score: 391.525882 },
+            { name: "معهد عالي كندي تكنولوجيا هندسة ت.خامس", score: 389.500000 },
+            { name: "كلية تكنولوجيا العلوم الصحية 6 أكتوبر التكنولوجية", score: 389.500000 },
+            { name: "فنون جميلة (فنون) حلوان", score: 389.475882 },
+            { name: "إعلام بني سويف", score: 389.397500 },
+            { name: "ألسن المنيا", score: 389.140580 },
+            { name: "ألسن جنوب الوادي فرع الغردقة", score: 388.803603 },
+            { name: "طب بيطري قناة السويس بالإسماعيلية", score: 388.799248 },
+            { name: "سياسة واقتصاد السويس", score: 387.450000 },
+            { name: "ألسن سوهاج", score: 387.450000 },
+            { name: "طب بيطري بني سويف", score: 387.128766 },
+            { name: "تمريض المنصورة", score: 385.400000 },
+            { name: "علوم بنات عين شمس", score: 385.400000 },
+            { name: "سياسة واقتصاد بني سويف", score: 385.021822 },
+            { name: "آداب انتساب موجه القاهرة", score: 384.759375 },
+            { name: "طب بيطري العريش", score: 379.250000 },
+            { name: "إعلام وتكنولوجيا اتصال السويس", score: 377.200000 },
+            { name: "طب بيطري الوادي الجديد", score: 377.200000 },
+            { name: "المعهد التكنولوجي العالي بالسادس من أكتوبر", score: 376.687500 },
+            { name: "معهد تكنولوجي عالي العاشر من رمضان شعبة (هندسة) بمصروفات", score: 375.150000 },
+            { name: "طب بيطري مطروح", score: 375.150000 },
+            { name: "تمريض القاهرة", score: 375.150000 },
+            { name: "طب بيطري جنوب الوادي", score: 374.975147 },
+            { name: "المصرية الصينية للتكنولوجيا قناة السويس بالإسماعيلية", score: 373.100000 },
+            { name: "كلية تكنولوجيا الصناعة والطاقة ج القاهرة الجديدة التكنولوجية", score: 373.100000 },
+            { name: "كلية تكنولوجيا الصناعة والطاقة 6 أكتوبر التكنولوجية", score: 371.828464 },
+            { name: "الملاحة وتكنولوجيا الفضاء بني سويف", score: 371.198056 },
+            { name: "الاعاقة والتأهيل الزقازيق", score: 370.181430 },
+            { name: "تمريض بور سعيد", score: 368.903529 },
+            { name: "تمريض دمياط", score: 368.597704 },
+            { name: "تربية (طفولة) كفر الشيخ", score: 368.316681 },
+            { name: "كلية تكنولوجيا العلوم الصحية برج العرب التكنولوجية", score: 366.829412 },
+            { name: "العالي للهندسة والتكنولوجيا التجمع الخامس", score: 365.289567 },
+            { name: "دار العلوم القاهرة", score: 364.736201 },
+            { name: "معهد الجزيرة العالى للهندسة والتكنولوجيا بالمقطم", score: 362.850000 },
+            { name: "المعهد الكندى العالى للهندسة 6 اكتوبر", score: 361.088072 },
+            { name: "علوم عين شمس", score: 359.134208 },
+            { name: "المعهد الكندي العالي للحاسب الآلي بالتجمع الخامس القاهرة الجديدة", score: 358.621875 },
+            { name: "علوم التغذية حلوان", score: 355.832100 },
+            { name: "تمريض حلوان", score: 354.625882 },
+            { name: "معهد هندسة وتكنولوجيا الطيران إمبابة جيزة بمصروفات", score: 353.625000 },
+            { name: "تمريض عين شمس", score: 353.496875 },
+            { name: "علوم المنصورة", score: 353.151691 },
+            { name: "تجارة انتساب موجه عين شمس", score: 350.426732 },
+            { name: "فنون تطبيقية طنطا", score: 350.194265 },
+            { name: "المعهد العالي للهندسة والتكنولوجيا بدمياط الجديدة", score: 346.695196 },
+            { name: "علوم حلوان", score: 344.400000 },
+            { name: "كلية تكنولوجيا الصناعة والطاقة 6 أكتوبر التكنولوجية علوم", score: 339.394248 },
+            { name: "معهد عالي هندسه 6 اكتوبر بمصروفات", score: 336.108554 },
+            { name: "التكنولوجيا والتعليم الصناعي حلوان", score: 334.642737 },
+            { name: "علوم كفر الشيخ", score: 334.150000 },
+            { name: "الاهرامات العالي للهندسة والتكنولوجيا -6 اكتوبر", score: 333.955719 },
+            { name: "تمريض الزقازيق", score: 332.922010 },
+            { name: "معهد عالي هندسة وتكنولوجيا العريش", score: 329.658758 },
+            { name: "آداب انتساب موجه المنصورة", score: 319.657974 },
+            { name: "تمريض كفر الشيخ", score: 317.683342 },
+            { name: "المدينةالعالي للإدارة والتكنولوجيا شبرامنت ش نظم معلومات إدارية", score: 310.444698 },
+            { name: "آداب انتساب موجه الفيوم", score: 309.291740 },
+            { name: "تجارة انتساب موجه المنصورة", score: 305.798492 },
+            { name: "تمريض بنها", score: 304.774371 },
+            { name: "حقوق انتساب موجه المنصورة", score: 302.311356 },
+            { name: "علوم طنطا", score: 300.493154 },
+            { name: "فنون تطبيقية حلوان", score: 294.484161 },
+            { name: "آداب انتساب موجه بنات عين شمس", score: 287.419044 },
+            { name: "تمريض الإسكندرية", score: 264.670074 }
+          ]
+        };
+
+        let tansikCurrentMode = 'boys';
+        const tansikCollegesList = document.getElementById('tansik-colleges-list');
+        const tansikCollegeSearch = document.getElementById('tansik-college-search');
+        const tansikSchoolGradeInput = document.getElementById('tansik-school-grade');
+        const tansikAptitudeGradeInput = document.getElementById('tansik-aptitude-grade');
+        const tansikResultInput = document.getElementById('tansik-result');
+        let tansikCurrentDisplayedColleges = [];
+
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+          document.querySelector('.boys-btn').classList.add('active');
+          document.querySelector('.girls-btn').classList.remove('active');
+          showAllTansikColleges();
+          
+          tansikSchoolGradeInput.addEventListener('input', tansikCalculate);
+          tansikAptitudeGradeInput.addEventListener('input', tansikCalculate);
+          
+          tansikCollegeSearch.addEventListener('input', tansikFilterColleges);
+          
+          // إضافة مستمعين لحذف القيم
+          tansikSchoolGradeInput.addEventListener('change', function() {
+            if(this.value === '') {
+              showAllTansikColleges();
+              tansikResultInput.value = '';
+              document.querySelector('.tansik-result-percentage').textContent = '';
+            }
+          });
+          
+          tansikAptitudeGradeInput.addEventListener('change', function() {
+            if(this.value === '') {
+              showAllTansikColleges();
+              tansikResultInput.value = '';
+              document.querySelector('.tansik-result-percentage').textContent = '';
+            }
+          });
+
+          // تفعيل النقر على البانر للانتقال لصفحة الجامعات الأهلية والخاصة المدمجة
+          const banner = document.getElementById('tansik-university-banner');
+          if (banner) {
+            banner.addEventListener('click', function() {
+              banner.style.transform = 'scale(0.98)';
+              banner.style.opacity = '0.8';
+              banner.style.transition = 'all 0.3s ease';
+              
+              setTimeout(() => {
+                window.showUniversityCalculator();
+              }, 300);
+            });
+          }
+        });
+
+        function tansikSwitchMode(mode) {
+          if (tansikCurrentMode === mode) return;
+          
+          // إظهار مؤشر تحميل
+          tansikCollegesList.innerHTML = '<div style="padding: 20px; text-align: center;">جاري التحميل...</div>';
+          
+          tansikCurrentMode = mode;
+          
+          // تأثيرات الانتقال
+          document.body.classList.add('tansik-mode-switch-animation');
+          setTimeout(() => {
+            document.body.classList.remove('tansik-mode-switch-animation');
+          }, 500);
+          
+          // تغيير النمط حسب الجنس
+          document.body.classList.remove('tansik-boys-mode', 'tansik-girls-mode');
+          document.body.classList.add(`tansik-${mode}-mode`);
+          document.body.classList.add('tansik-page');
+          
+          // تحديث الأزرار النشطة
+          document.querySelector('.boys-btn').classList.remove('active');
+          document.querySelector('.girls-btn').classList.remove('active');
+          document.querySelector(`.${mode}-btn`).classList.add('active');
+          
+          // تغيير النص حسب الجنس
+          document.querySelector('.tansik-calculator-container h2').textContent = 
+            mode === 'girls' ? 'حاسبة التنسيق للبنات 2025' : 'حاسبة التنسيق للبنين 2025';
+          
+          // إعادة تعيين جميع الحقول والنتائج
+          tansikSchoolGradeInput.value = '';
+          tansikAptitudeGradeInput.value = '';
+          tansikResultInput.value = '';
+          document.querySelector('.tansik-result-percentage').textContent = '';
+          tansikCollegeSearch.value = '';
+          
+          // إعادة تعيين موضع التمرير وإعادة تحميل الكليات
+          tansikCollegesList.scrollTop = 0;
+          tansikCollegesList.style.opacity = '0';
+          
+          setTimeout(() => {
+            showAllTansikColleges();
+            tansikCollegesList.style.opacity = '1';
+          }, 300);
+        }
+
+        function tansikConvertToEnglishNumbers(arabicNum) {
+          if (!arabicNum) return '';
+          return arabicNum.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+        }
+
+        function tansikCalculate() {
+          let s = tansikConvertToEnglishNumbers(tansikSchoolGradeInput.value.trim());
+          let q = tansikConvertToEnglishNumbers(tansikAptitudeGradeInput.value.trim());
+          s = parseFloat(s);
+          q = parseFloat(q);
+
+          if ((s > 100 || q > 100 || s < 0 || q < 0)) {
+            document.getElementById('tansik-error-message').style.display = 'block';
+            document.getElementById('tansik-error-message').textContent = s > 100 || q > 100 ? "الدرجة لا يمكن أن تتجاوز 100" : "الدرجة لا يمكن أن تكون أقل من الصفر";
+            tansikResultInput.value = '';
+            document.querySelector('.tansik-result-percentage').textContent = '';
+            return;
+          } else {
+            document.getElementById('tansik-error-message').style.display = 'none';
+          }
+
+          if (!isNaN(s) && !isNaN(q) && s >= 0 && q >= 0) {
+            const final = ((s + q) / 2) * 4.1;
+            const percentage = ((final / 410) * 100).toFixed(2);
+            const resultText = final === 410 ? "410" : final.toFixed(6);
+            tansikResultInput.value = resultText;
+            
+            // تغيير رسالة التشجيع حسب الجنس
+            const encouragement = tansikCurrentMode === 'boys' ? '🎉 عاش يا بطل' : '👑';
+            document.querySelector('.tansik-result-percentage').textContent = `${percentage}%` + (percentage > 98 ? ` - ${encouragement}` : '');
+            
+            tansikShowAvailableColleges(final);
+          } else {
+            tansikResultInput.value = '';
+            document.querySelector('.tansik-result-percentage').textContent = '';
+            showAllTansikColleges();
+          }
+        }
+
+        function tansikShowAvailableColleges(score) {
+          const data = tansikCollegesData[tansikCurrentMode];
+          tansikCurrentDisplayedColleges = data.filter(college => college.score <= score + 0.000001)
+            .sort((a, b) => b.score - a.score);
+
+          if (tansikCurrentDisplayedColleges.length === 0) {
+            tansikCollegesList.innerHTML = '<div class="tansik-no-colleges">لا توجد كليات متاحة لهذه الدرجة</div>';
+            return;
+          }
+
+          tansikRenderColleges(tansikCurrentDisplayedColleges);
+        }
+
+        function showAllTansikColleges() {
+          const data = tansikCollegesData[tansikCurrentMode];
+          tansikCurrentDisplayedColleges = [...data].sort((a, b) => b.score - a.score);
+          tansikRenderColleges(tansikCurrentDisplayedColleges);
+        }
+
+        function tansikFilterColleges() {
+          const searchTerm = tansikCollegeSearch.value.trim().toLowerCase();
+          const currentScore = tansikResultInput.value ? parseFloat(tansikResultInput.value) : null;
+          
+          if (searchTerm === '') {
+            if (tansikResultInput.value === '') {
+              showAllTansikColleges();
+            } else {
+              tansikCalculate();
+            }
+            return;
+          }
+          
+          // البحث في جميع الكليات وليس فقط المعروضة حالياً
+          const allColleges = tansikCollegesData[tansikCurrentMode];
+          const filtered = allColleges.filter(college => 
+              college.name.toLowerCase().includes(searchTerm))
+              .sort((a, b) => b.score - a.score);
+          
+          if (filtered.length === 0) {
+              tansikCollegesList.innerHTML = '<div class="tansik-no-colleges">لا توجد كليات تطابق البحث</div>';
+          } else {
+              let collegesHTML = '';
+              filtered.forEach((college, index) => {
+                  const isExactMatch = currentScore !== null && 
+                                      Math.abs(college.score - currentScore) <= 0.000001;
+                  const isAvailable = currentScore === null || college.score <= currentScore + 0.000001;
+                  
+                  collegesHTML += `
+                  <div class="tansik-college-item ${isExactMatch ? 'tansik-exact-match' : 
+                      isAvailable ? 'tansik-highlight' : 'tansik-not-available'}" 
+                      style="animation-delay: ${index * 0.05}s">
+                      <span class="tansik-college-name">${college.name}</span>
+                      <span class="tansik-college-score">${college.score.toFixed(6)}</span>
+                      ${isExactMatch ? '<span style="color: var(--exact-match-color);">(تساوي درجتك بالضبط)</span>' : ''}
+                      ${!isAvailable ? '<span class="tansik-not-available-message">(درجتك لا تكفي لدخول هذه الكلية)</span>' : ''}
+                  </div>`;
+              });
+              tansikCollegesList.innerHTML = collegesHTML;
+          }
+        }
+
+        function tansikRenderColleges(colleges) {
+          let collegesHTML = '';
+          const currentScore = tansikResultInput.value ? parseFloat(tansikResultInput.value) : null;
+          
+          colleges.forEach((college, index) => {
+              const isExactMatch = currentScore !== null && 
+                                  Math.abs(college.score - currentScore) <= 0.000001;
+              const isAvailable = currentScore === null || college.score <= currentScore + 0.000001;
+              
+              collegesHTML += `
+              <div class="tansik-college-item ${isExactMatch ? 'tansik-exact-match' : 
+                  isAvailable ? 'tansik-highlight' : 'tansik-not-available'}" 
+                  style="animation-delay: ${index * 0.05}s">
+                  <span class="tansik-college-name">${college.name}</span>
+                  <span class="tansik-college-score">${college.score.toFixed(6)}</span>
+                  ${isExactMatch ? '<span style="color: var(--exact-match-color);">(تساوي درجتك بالضبط)</span>' : ''}
+                  ${!isAvailable ? '<span class="tansik-not-available-message">(درجتك لا تكفي لدخول هذه الكلية)</span>' : ''}
+              </div>`;
+          });
+          tansikCollegesList.innerHTML = collegesHTML;
+        }
+
+        // تحديث ألوان البانر عند تغيير الوضع
+        function updateBannerColors() {
+            if (tansikCurrentMode === 'boys') {
+                document.documentElement.style.setProperty('--banner-primary', '#0077b6');
+                document.documentElement.style.setProperty('--banner-secondary', '#004a7c');
+                document.documentElement.style.setProperty('--instagram-color', '#E1306C');
+            } else {
+                document.documentElement.style.setProperty('--banner-primary', '#ff69b4');
+                document.documentElement.style.setProperty('--banner-secondary', '#d44d8c');
+                document.documentElement.style.setProperty('--instagram-color', '#C13584');
+            }
+        }
+
+        // تعديل دالة تغيير الوضع الأصلية
+        const originalSwitchMode = tansikSwitchMode;
+        tansikSwitchMode = function(mode) {
+            originalSwitchMode(mode);
+            updateBannerColors();
+        };
+
+        // تحديث الألوان عند التحميل الأولي
+        document.addEventListener('DOMContentLoaded', updateBannerColors);
+    </script>
+
+    <!-- كود الـ React الخاص بحاسبة الجامعات الأهلية -->
+    <script type="text/babel">
+        const universitiesData = [
+            {
+                name: "جامعة المنصورة الأهلية",
+                officialSite: "https://www.mansnu.edu.eg",
+                colleges: [
+                    { name: "الطب البشري", minScore: 99.5, fees: "150,000 جنيه" },
+                    { name: "طب الأسنان", minScore: 96, fees: "130,000 جنيه" },
+                    { name: "الصيدلة", minScore: 94.80, fees: "100,000 جنيه" },
+                    { name: "الهندسة", minScore: 94, fees: "80,000 جنيه" },
+                ],
+            },
+            {
+                name: "المنصورة الجديدة",
+                officialSite: "https://www.newmans.edu.eg",
+                colleges: [
+                    { name: "الطب البشري", minScore: 99.51, fees: "105,000 جنيه" },
+                    { name: "طب الأسنان", minScore: 98.78, fees: "97,000 جنيه" },
+                    { name: "الصيدلة", minScore: 82.11, fees: "85,000 جنيه" },
+                    { name: "الهندسة", minScore: 70, fees: "69,000 جنيه" },
+                    { name: "هندسة الحاسب", minScore: 70, fees: "69,000 جنيه" },
+                    { name: "حاسبات ومعلومات", minScore: 70, fees: "69,000 جنيه" },
+                    { name: "علوم", minScore: 58, fees: "48,000 جنيه" },
+                    { name: "تمريض", minScore: 58, fees: "31,000 جنيه" },
+                ],
+            },
+            {
+                name: "جامعة النيل",
+                officialSite: "https://www.nileu.edu.eg",
+                colleges: [
+                    { name: "الهندسة", minScore: 70, fees: "93,000 جنيه" },
+                    { name: "هندسة حيوية", minScore: 70, fees: "93,000 جنيه" },
+                    { name: "حاسبات ومعلومات", minScore: 65, fees: "89,000 جنيه" },
+                    { name: "بيزنس", minScore: 58, fees: "71,000 جنيه" },
+                    { name: "تكنولوجيا بيولوجية", minScore: 58, fees: "80,000 جنيه" },
+                ],
+            },
+        ];
+
+        function Calculator() {
+            const [aptitudeScore, setAptitudeScore] = React.useState("");
+            const [schoolScore, setSchoolScore] = React.useState("");
+            const [result, setResult] = React.useState(null);
+
+            const isArabic = document.documentElement.lang === 'ar' || navigator.language.startsWith('ar');
+            const decimalPoint = isArabic ? '٫' : '.';
+
+            const arabicToEnglish = (str) => {
+                const arabicNumbers = '٠١٢٣٤٥٦٧٨٩٫';
+                const englishNumbers = '0123456789.';
+                return str.split('').map(char => arabicNumbers.includes(char) ? englishNumbers[arabicNumbers.indexOf(char)] : char).join('');
+            };
+
+            const handleInput = (e, setValue) => {
+                const value = arabicToEnglish(e.target.value);
+                const validInput = value.match(/^\d*\.?\d*$/);
+                if (!validInput) return; // Ignore invalid input silently
+                const numValue = parseFloat(value);
+                if (isNaN(numValue) && value !== '' && value !== '.') {
+                    return; // Ignore non-numeric input silently
+                }
+                if (value === '' || value === '.') {
+                    setValue(value);
+                    return;
+                }
+                if (numValue <= 100) {
+                    setValue(value);
+                }
+            };
+
+            const calculatePercentage = () => {
+                if (!aptitudeScore || !schoolScore) return;
+                const aptitude = parseFloat(aptitudeScore) || 0;
+                const school = parseFloat(schoolScore) || 0;
+                const average = (aptitude + school) / 2;
+                const totalScore = average * 4.1;
+                const percentage = (totalScore / 410) * 100;
+                setResult({ total: totalScore.toFixed(2), percentage: percentage.toFixed(2) });
+            };
+
+            const handleReset = () => {
+                setAptitudeScore("");
+                setSchoolScore("");
+                setResult(null);
+            };
+
+            const handleKeyPress = (e) => {
+                if (e.key === 'Enter') {
+                    calculatePercentage();
+                }
+            };
+
+            const getEligibleColleges = () => {
+                if (!result?.percentage) return [];
+                return universitiesData.flatMap(university =>
+                    university.colleges
+                        .filter(college => college.minScore <= parseFloat(result.percentage))
+                        .map(college => ({ ...college, university: university.name }))
+                ).sort((a, b) => b.minScore - a.minScore); // ترتيب تنازلي حسب minScore
+            };
+
+            const eligibleColleges = getEligibleColleges();
+
+            return React.createElement('div', { className: 'uni-calculator p-6 mb-8 rounded-lg shadow-lg' },
+                React.createElement('div', { className: 'flex items-center justify-between mb-4' },
+                    React.createElement('div', { style: { flex: 1, display: 'flex', justifyContent: 'center' } },
+                        React.createElement('i', {
+                            className: 'fas fa-calculator',
+                            style: { fontSize: '2.2rem', color: '#06b6d4', background: '#fff', borderRadius: '50%', padding: '12px', boxShadow: '0 2px 12px #06b6d455' }
+                        })
+                    ),
+                    React.createElement('button', {
+                        onClick: handleReset,
+                        title: 'إعادة تعيين',
+                        className: 'reset-btn bg-cyan-500 hover:bg-cyan-600 text-white rounded-full p-2 flex items-center justify-center',
+                        style: { minWidth: 40, minHeight: 40, marginRight: 'auto' }
+                    },
+                        React.createElement('i', { className: 'fas fa-redo', style: { fontSize: '1.2rem' } })
+                    )
+                ),
+                React.createElement('div', { className: 'grid grid-cols-1 gap-4' },
+                    React.createElement('div', null,
+                        React.createElement('label', { className: 'block text-right font-semibold mb-2 text-sm text-cyan-400' }, 'درجة القدرات (من 100)'),
+                        React.createElement('input', {
+                            type: 'text',
+                            inputMode: 'decimal',
+                            placeholder: 'أدخل درجة القدرات...',
+                            className: 'uni-input-field p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none w-full text-right',
+                            value: aptitudeScore,
+                            onChange: (e) => handleInput(e, setAptitudeScore),
+                            onKeyPress: handleKeyPress
+                        })
+                    ),
+                    React.createElement('div', null,
+                        React.createElement('label', { className: 'block text-right font-semibold mb-2 text-sm text-cyan-400' }, 'درجة المدرسة (من 100)'),
+                        React.createElement('input', {
+                            type: 'text',
+                            inputMode: 'decimal',
+                            placeholder: 'أدخل درجة المدرسة...',
+                            className: 'uni-input-field p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none w-full text-right',
+                            value: schoolScore,
+                            onChange: (e) => handleInput(e, setSchoolScore),
+                            onKeyPress: handleKeyPress
+                        })
+                    )
+                ),
+                React.createElement('button', {
+                    onClick: calculatePercentage,
+                    className: 'mt-6 w-full bg-cyan-500 text-white p-3 rounded-lg hover:bg-cyan-600 transition duration-300 font-semibold flex items-center justify-center',
+                    disabled: !aptitudeScore || !schoolScore
+                }, 'احسب النتيجة'),
+                result && React.createElement('div', { className: 'mt-6 p-4 bg-gray-900 rounded-lg uni-result-highlight border border-cyan-500/30' },
+                    React.createElement('div', { className: 'grid grid-cols-1 gap-2 mb-2 text-right' },
+                        React.createElement('div', { className: 'text-lg text-white' },
+                            React.createElement('span', { className: 'font-bold' }, 'الدرجة الإجمالية المعادلة:'),
+                            ' ',
+                            React.createElement('span', { className: 'text-cyan-400 font-bold' }, result.total, ' / 410')
+                        ),
+                        React.createElement('div', { className: 'text-lg text-white' },
+                            React.createElement('span', { className: 'font-bold' }, 'النسبة المئوية:'),
+                            ' ',
+                            React.createElement('span', { className: 'text-cyan-400 font-bold' }, result.percentage, '%')
+                        )
+                    ),
+                    React.createElement('p', { className: 'mt-4 text-right text-base font-semibold border-t border-gray-800 pt-2 text-cyan-400' }, '🎓 الكليات المتاحة لك بناءً على درجتك:'),
+                    React.createElement('div', { className: 'result-colleges flex flex-col space-y-2 mt-2 text-right' },
+                        eligibleColleges.length > 0 ? (
+                            eligibleColleges.map((college, index) =>
+                                React.createElement('div', { key: index, className: 'bg-gray-800 p-3 rounded-lg text-base border border-gray-700 hover:border-cyan-500/50 transition duration-200 text-white' },
+                                    React.createElement('div', { className: 'font-semibold text-cyan-400' }, college.name),
+                                    React.createElement('div', { className: 'text-gray-300 text-sm mt-1' }, 'الجامعة: ', college.university),
+                                    React.createElement('div', { className: 'text-gray-400 text-xs' }, 'الحد الأدنى للقبول: ', college.minScore, '%'),
+                                    college.fees && React.createElement('div', { className: 'text-emerald-400 text-xs font-semibold' }, 'المصروفات السنوية: ', college.fees)
+                                )
+                            )
+                        ) : (
+                            React.createElement('div', { className: 'text-red-400 text-base' }, 'لا توجد كليات متاحة بناءً على درجتك الحالية')
+                        )
+                    )
+                )
+            );
+        }
+
+        function UniversityCard({ university }) {
+            const [isExpanded, setIsExpanded] = React.useState(false);
+            const [scrollHandled, setScrollHandled] = React.useState(false);
+
+            const handleScroll = (e) => {
+                if (window.innerWidth <= 640 && !scrollHandled) {
+                    const { scrollTop, scrollHeight, clientHeight } = e.target;
+                    if (scrollTop + clientHeight >= scrollHeight - 5) {
+                        e.target.style.overflowY = 'hidden';
+                        window.scrollBy(0, 1);
+                        setScrollHandled(true);
+                    }
+                }
+            };
+
+            const remainingColleges = university.colleges.length - 2;
+
+            return React.createElement('div', { className: 'uni-card p-6 rounded-lg shadow-md mb-6 text-right text-white ' + (isExpanded ? 'expanded' : '') },
+                React.createElement('h3', {
+                    className: 'text-xl font-bold text-cyan-400 mb-4 cursor-pointer flex justify-between items-center',
+                    onClick: () => { setIsExpanded(!isExpanded); setScrollHandled(false); }
+                },
+                    React.createElement('span', null, isExpanded ? '▲' : '▼'),
+                    React.createElement('span', null, university.name)
+                ),
+                !isExpanded ? (
+                    React.createElement('ul', { className: 'space-y-2' },
+                        university.colleges.slice(0, 2).map((college, index) =>
+                            React.createElement('li', { key: index, className: 'text-gray-300 uni-college-card p-3 rounded bg-gray-800/40 border border-gray-800' },
+                                React.createElement('span', { className: 'font-semibold' }, college.name),
+                                ' - حد أدنى: ',
+                                React.createElement('span', { className: 'text-cyan-400 font-bold' }, college.minScore, '%')
+                            )
+                        ),
+                        university.colleges.length > 2 && React.createElement('li', {
+                            className: 'text-cyan-400 cursor-pointer text-sm font-semibold hover:underline mt-2 inline-block',
+                            onClick: () => setIsExpanded(true)
+                        }, '+ عرض المزيد... (باقي ', remainingColleges, ' كليات)')
+                    )
+                ) : (
+                    React.createElement('div', { className: 'space-y-4', onScroll: handleScroll },
+                        React.createElement('p', { className: 'text-gray-300' },
+                            React.createElement('span', { className: 'font-bold' }, 'الموقع الرسمي:'),
+                            ' ',
+                            React.createElement('a', {
+                                href: university.officialSite,
+                                target: '_blank',
+                                rel: 'noopener noreferrer',
+                                className: 'text-cyan-400 hover:underline'
+                            }, 'الانتقال إلى الموقع الرسمي ↗')
+                        ),
+                        React.createElement('ul', { className: 'space-y-2' },
+                            university.colleges.map((college, index) =>
+                                React.createElement('li', { key: index, className: 'uni-college-card p-3 rounded bg-gray-800 text-gray-200 border border-gray-700' },
+                                    React.createElement('div', { className: 'font-semibold text-cyan-400' }, college.name),
+                                    React.createElement('div', { className: 'text-sm mt-1' }, 'حد أدنى للقبول: ', college.minScore, '%'),
+                                    college.fees ? React.createElement('div', { className: 'text-emerald-400 text-sm font-semibold' }, 'المصروفات سنويًا: ', college.fees) : React.createElement('div', { className: 'text-gray-400 text-xs' }, 'المصروفات: غير محددة')
+                                )
+                            )
+                        ),
+                        React.createElement('button', {
+                            onClick: () => setIsExpanded(false),
+                            className: 'mt-4 w-full bg-gray-700 text-white p-2 rounded-lg hover:bg-gray-600 transition duration-300 font-semibold'
+                        }, 'عرض أقل'),
+                        React.createElement('p', { className: 'text-gray-400 text-xs mt-2 italic' }, '* قد تختلف المصروفات الرسمية للعام الدراسي الحالي، يرجى مراجعة إدارة الجامعة للتأكد.')
+                    )
+                )
+            );
+        }
+
+        function App() {
+            return React.createElement('div', { className: 'container mx-auto p-4 max-w-4xl' },
+                React.createElement('div', { className: 'flex justify-between items-center mb-6 border-b border-gray-800 pb-4' },
+                    React.createElement('a', {
+                        href: '#',
+                        onClick: (e) => {
+                            e.preventDefault();
+                            window.showMainCalculator();
+                        },
+                        className: 'bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-400 border border-cyan-500/30 px-4 py-2 rounded-lg text-sm font-semibold transition duration-300 flex items-center gap-2'
+                    },
+                        React.createElement('i', { className: 'fas fa-arrow-right' }),
+                        'العودة للحاسبة الأساسية'
+                    ),
+                    React.createElement('div', { className: 'text-xs text-gray-400' }, 'نسخة تجريبية 1.0')
+                ),
+                React.createElement('header', { className: 'text-center mb-8' },
+                    React.createElement('h1', { className: 'text-3xl font-bold text-cyan-400' }, 'حاسبة تنسيق الجامعات الأهلية 2024/2025'),
+                    React.createElement('p', { className: 'text-gray-400 mt-2 text-sm' }, 'أدخل درجاتك واكتشف الكليات المتاحة لك بالجامعات الأهلية ومصروفاتها الدراسية')
+                ),
+                React.createElement(Calculator, null),
+                React.createElement('h2', { className: 'text-2xl font-bold text-cyan-400 mb-4 text-right' }, '🏫 الجامعات الأهلية المتاحة:'),
+                React.createElement('div', { className: 'grid grid-cols-1 gap-6' },
+                    universitiesData.map((university, index) =>
+                        React.createElement(UniversityCard, { key: index, university: university })
+                    )
+                ),
+                React.createElement('footer', { className: 'text-center mt-12 text-gray-500 text-sm border-t border-gray-800 pt-6' },
+                    React.createElement('p', null, 'تمت البيانات بالتواصل مع شؤون الطلاب بالجامعات - آخر تحديث: يونيو 2025'),
+                    React.createElement('div', { className: 'mt-4 p-3 bg-cyan-950/20 rounded-lg border border-cyan-950 inline-block' },
+                        React.createElement('p', { className: 'text-sm text-cyan-400 font-semibold' }, 'باقي الجامعات الأهلية سيتم إضافتها تباعاً!')
+                    )
+                )
+            );
+        }
+
+        const rootElement = document.getElementById('university-root');
+        if (rootElement) {
+            ReactDOM.render(React.createElement(App, null), rootElement);
+        } else {
+            console.error('Root element not found');
+        }
+    </script>
+</body>
+</html>
