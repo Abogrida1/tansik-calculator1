@@ -80,15 +80,23 @@
         }
 
         body.tansik-university-mode {
-            background: radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%) !important;
-            color: #f8fafc !important;
-            --card-bg: rgba(15, 23, 42, 0.75);
-            --card-border: rgba(6, 182, 212, 0.2);
-            --text-main: #f8fafc;
-            --border-color: rgba(6, 182, 212, 0.15);
-            --primary-color: #06b6d4;
-            --primary-gradient: linear-gradient(135deg, #06b6d4, #0891b2);
-            --glow-color: rgba(6, 182, 212, 0.3);
+            background: radial-gradient(circle at 50% 50%, #e0f2fe 0%, #f0f9ff 100%) !important;
+            color: #1e293b !important;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(2, 132, 199, 0.15);
+            --text-main: #0369a1;
+            --text-muted: #475569;
+            --input-bg: rgba(255, 255, 255, 0.9);
+            --border-color: #bae6fd;
+            --highlight-color: #0284c7;
+            --success-color: #10b981;
+            --exact-match-color: #8b5cf6;
+            --college-item-bg: rgba(2, 132, 199, 0.06);
+            --result-bg: rgba(2, 132, 199, 0.08);
+            --colleges-list-bg: #ffffff;
+            --primary-color: #0284c7;
+            --primary-gradient: linear-gradient(135deg, #0284c7, #0369a1);
+            --glow-color: rgba(2, 132, 199, 0.2);
         }
 
         /* ==================== 3. شريط التنقل العلوي (Navigation Tabs) ==================== */
@@ -110,9 +118,9 @@
         }
 
         body.tansik-university-mode .premium-nav-container {
-            background: rgba(15, 23, 42, 0.6);
-            border-color: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         .premium-nav-tab {
@@ -134,7 +142,7 @@
         }
 
         body.tansik-university-mode .premium-nav-tab {
-            color: #94a3b8;
+            color: #64748b;
         }
 
         .premium-nav-tab i {
@@ -156,8 +164,8 @@
         }
 
         body.tansik-university-mode .premium-nav-tab.active {
-            background: linear-gradient(135deg, #06b6d4, #0891b2);
-            box-shadow: 0 10px 20px rgba(6, 182, 212, 0.3);
+            background: var(--primary-gradient);
+            box-shadow: 0 10px 20px var(--glow-color);
         }
 
         /* ==================== 4. تصميم الحاسبة العامة ==================== */
@@ -450,16 +458,15 @@
 
         /* كارت الآلة الحاسبة الأهلية */
         .uni-calculator {
-            background: rgba(30, 41, 59, 0.45);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(6, 182, 212, 0.15);
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
             border-radius: var(--border-radius-lg);
-            padding: 30px;
+            padding: 35px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
             transition: var(--transition-smooth);
         }
 
@@ -469,190 +476,70 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
+            height: 5px;
+            background: var(--primary-gradient);
         }
 
         .uni-input-field {
-            background: rgba(15, 23, 42, 0.6) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            color: white !important;
+            background: var(--input-bg) !important;
+            border: 2px solid var(--border-color) !important;
+            color: #1e293b !important;
             font-family: var(--font-numbers);
             font-weight: 600;
-            padding: 14px 18px !important;
+            padding: 15px 45px 15px 16px !important;
             border-radius: var(--border-radius-md) !important;
             transition: var(--transition-smooth) !important;
         }
 
         .uni-input-field:focus {
-            border-color: #06b6d4 !important;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25) !important;
-            background: rgba(15, 23, 42, 0.8) !important;
-        }
-
-        /* المؤشر الدائري التفاعلي للنسبة */
-        .circular-gauge-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .gauge-svg {
-            width: 140px;
-            height: 140px;
-            transform: rotate(-90deg);
-        }
-
-        .gauge-bg {
-            fill: none;
-            stroke: rgba(255, 255, 255, 0.05);
-            stroke-width: 10;
-        }
-
-        .gauge-fill {
-            fill: none;
-            stroke: url(#gaugeGradient);
-            stroke-width: 10;
-            stroke-linecap: round;
-            transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .gauge-text {
-            position: absolute;
-            font-family: var(--font-numbers);
-            font-size: 26px;
-            font-weight: 800;
-            color: white;
-            text-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1;
-        }
-
-        .gauge-text span {
-            font-size: 12px;
-            color: #94a3b8;
-            font-family: var(--font-main);
-            margin-top: 4px;
-            font-weight: 500;
+            border-color: var(--primary-color) !important;
+            box-shadow: 0 0 0 4px var(--glow-color) !important;
+            background: #ffffff !important;
         }
 
         /* كروت الجامعات الأهلية */
         .uni-card {
-            background: rgba(30, 41, 59, 0.35);
+            background: var(--card-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-radius: var(--border-radius-lg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 28px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
             transition: var(--transition-smooth);
             position: relative;
         }
 
         .uni-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(6, 182, 212, 0.3);
-            box-shadow: 0 20px 45px rgba(6, 182, 212, 0.08);
+            transform: translateY(-3px);
+            border-color: var(--primary-color);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
         }
 
         .uni-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 16px;
             margin-bottom: 20px;
-        }
-
-        .uni-logo-fallback {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            border: 2px solid rgba(6, 182, 212, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #06b6d4;
-            font-size: 20px;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
         }
 
         .uni-card-title {
             font-size: 20px;
             font-weight: 800;
-            color: #f8fafc;
+            color: var(--text-main);
         }
 
-        /* كروت الكليات داخل كارت الجامعة */
-        .uni-college-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 15px;
-        }
-
-        .uni-college-card {
-            background: rgba(15, 23, 42, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+        .uni-college-list-scroll {
+            margin-top: 15px;
+            text-align: right;
+            max-height: 380px;
+            overflow-y: auto;
+            padding: 5px;
+            border: 1px solid var(--border-color);
             border-radius: var(--border-radius-md);
-            padding: 16px;
-            transition: var(--transition-smooth);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .uni-college-card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(6, 182, 212, 0.2);
-            background: rgba(15, 23, 42, 0.7);
-        }
-
-        .uni-college-name {
-            font-weight: 700;
-            font-size: 15px;
-            color: #e2e8f0;
-            margin-bottom: 10px;
-        }
-
-        .uni-college-min-score {
-            font-family: var(--font-numbers);
-            font-weight: 700;
-            color: #06b6d4;
-            font-size: 16px;
-            background: rgba(6, 182, 212, 0.1);
-            padding: 2px 10px;
-            border-radius: 12px;
-            align-self: flex-start;
-        }
-
-        .uni-college-fees {
-            font-size: 13px;
-            color: #10b981;
-            font-weight: 700;
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .uni-progress-bar {
-            height: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-
-        .uni-progress-bar-fill {
-            height: 100%;
-            border-radius: 10px;
+            background-color: var(--colleges-list-bg);
             transition: var(--transition-smooth);
         }
 
@@ -671,23 +558,23 @@
             font-weight: 700;
             border-radius: 30px;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.03);
-            color: #94a3b8;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.6);
+            color: #64748b;
             transition: var(--transition-smooth);
         }
 
         .filter-tag:hover {
-            color: white;
-            border-color: rgba(6, 182, 212, 0.25);
-            background: rgba(6, 182, 212, 0.05);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .filter-tag.active {
             color: white;
-            background: #06b6d4;
-            border-color: #06b6d4;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+            background: var(--primary-gradient);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px var(--glow-color);
         }
 
         /* ==================== 6. الزر العائم للتواصل الاجتماعي ==================== */
@@ -1881,50 +1768,12 @@
             },
         ];
 
-        // المكون الفرعي لعرض المؤشر الدائري
-        function CircularGauge({ percentage }) {
-            const radius = 52;
-            const strokeWidth = 8;
-            const circumference = 2 * Math.PI * radius;
-            const progress = Math.min(Math.max(percentage, 0), 100);
-            const strokeDashoffset = circumference - (progress / 100) * circumference;
-
-            return (
-                <div className="circular-gauge-container relative shrink-0">
-                    <svg className="gauge-svg">
-                        <defs>
-                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stopColor="#06b6d4" />
-                                <stop offset="100%" stopColor="#3b82f6" />
-                            </linearGradient>
-                        </defs>
-                        {/* الخلفية الرمادية للدائرة */}
-                        <circle cx="70" cy="70" r={radius} className="gauge-bg" />
-                        {/* النسبة المعبأة */}
-                        <circle
-                            cx="70"
-                            cy="70"
-                            r={radius}
-                            className="gauge-fill"
-                            strokeDasharray={circumference}
-                            strokeDashoffset={strokeDashoffset}
-                        />
-                    </svg>
-                    <div className="gauge-text">
-                        <span>{percentage}%</span>
-                        <span className="text-gray-400 text-xs font-normal mt-1">النسبة المكافئة</span>
-                    </div>
-                </div>
-            );
-        }
-
         function Calculator({ onCalculate, onReset, result }) {
             const [aptitudeScore, setAptitudeScore] = React.useState("");
             const [schoolScore, setSchoolScore] = React.useState("");
 
             const handleInput = (e, setValue) => {
                 const val = e.target.value;
-                // السماح بالأرقام والنقاط العشرية فقط
                 const englishVal = val.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace('٫', '.');
                 if (englishVal === "" || /^\d*\.?\d*$/.test(englishVal)) {
                     const num = parseFloat(englishVal);
@@ -1934,97 +1783,76 @@
                 }
             };
 
-            const calculate = () => {
-                if (!aptitudeScore || !schoolScore) return;
-                const aptitude = parseFloat(aptitudeScore) || 0;
-                const school = parseFloat(schoolScore) || 0;
-                const average = (aptitude + school) / 2;
-                const totalScore = average * 4.1;
-                const percentage = (totalScore / 410) * 100;
-                
-                onCalculate({
-                    total: totalScore.toFixed(2),
-                    percentage: percentage.toFixed(2)
-                });
-            };
-
-            const reset = () => {
-                setAptitudeScore("");
-                setSchoolScore("");
-                onReset();
-            };
+            React.useEffect(() => {
+                if (aptitudeScore && schoolScore) {
+                    const aptitude = parseFloat(aptitudeScore) || 0;
+                    const school = parseFloat(schoolScore) || 0;
+                    const average = (aptitude + school) / 2;
+                    const totalScore = average * 4.1;
+                    const percentage = (totalScore / 410) * 100;
+                    
+                    onCalculate({
+                        total: totalScore.toFixed(2),
+                        percentage: percentage.toFixed(2)
+                    });
+                } else {
+                    onReset();
+                }
+            }, [aptitudeScore, schoolScore]);
 
             return (
                 <div className="uni-calculator p-6 rounded-2xl shadow-xl mb-8">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="bg-cyan-500/10 text-cyan-400 p-3 rounded-full flex items-center justify-center w-12 h-12 shadow-inner">
-                            <i className="fas fa-calculator text-xl"></i>
-                        </div>
-                        <button
-                            onClick={reset}
-                            title="إعادة تعيين"
-                            className="bg-slate-800 hover:bg-slate-700 text-gray-400 hover:text-white rounded-full p-2.5 flex items-center justify-center transition duration-300 border border-slate-700/50 shadow"
-                        >
-                            <i className="fas fa-redo"></i>
-                        </button>
-                    </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label className="block text-right font-bold mb-2 text-sm text-cyan-400">
-                                <i className="fas fa-award mr-1"></i> درجة القدرات (من 100)
+                            <label className="tansik-label">
+                                <i className="fas fa-award"></i> درجة القدرات (من 100)
                             </label>
-                            <input
-                                type="text"
-                                inputMode="decimal"
-                                placeholder="مثال: 85.5"
-                                className="uni-input-field p-4 rounded-xl bg-slate-900/60 text-white border border-slate-700 focus:outline-none w-full text-right"
-                                value={aptitudeScore}
-                                onChange={(e) => handleInput(e, setAptitudeScore)}
-                                onKeyDown={(e) => e.key === 'Enter' && calculate()}
-                            />
+                            <div className="tansik-input-group">
+                                <i className="fas fa-award tansik-input-icon"></i>
+                                <input
+                                    type="text"
+                                    inputMode="decimal"
+                                    placeholder="أدخل درجة القدرات..."
+                                    className="tansik-input"
+                                    value={aptitudeScore}
+                                    onChange={(e) => handleInput(e, setAptitudeScore)}
+                                />
+                            </div>
                         </div>
                         <div>
-                            <label className="block text-right font-bold mb-2 text-sm text-cyan-400">
-                                <i className="fas fa-school mr-1"></i> درجة المدرسة (من 100)
+                            <label className="tansik-label">
+                                <i className="fas fa-school"></i> درجة المدرسة (من 100)
                             </label>
-                            <input
-                                type="text"
-                                inputMode="decimal"
-                                placeholder="مثال: 92.3"
-                                className="uni-input-field p-4 rounded-xl bg-slate-900/60 text-white border border-slate-700 focus:outline-none w-full text-right"
-                                value={schoolScore}
-                                onChange={(e) => handleInput(e, setSchoolScore)}
-                                onKeyDown={(e) => e.key === 'Enter' && calculate()}
-                            />
+                            <div className="tansik-input-group">
+                                <i className="fas fa-school tansik-input-icon"></i>
+                                <input
+                                    type="text"
+                                    inputMode="decimal"
+                                    placeholder="أدخل درجة المدرسة..."
+                                    className="tansik-input"
+                                    value={schoolScore}
+                                    onChange={(e) => handleInput(e, setSchoolScore)}
+                                />
+                            </div>
                         </div>
                     </div>
 
-                    <button
-                        onClick={calculate}
-                        className="mt-6 w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white p-4 rounded-xl hover:from-cyan-600 hover:to-blue-700 transition duration-300 font-bold flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
-                        disabled={!aptitudeScore || !schoolScore}
-                    >
-                        <span>احسب النسبة والكليات المتاحة</span>
-                        <i className="fas fa-angle-left"></i>
-                    </button>
-
                     {result && (
-                        <div className="mt-8 p-6 bg-slate-950/60 rounded-xl border border-cyan-500/20 flex flex-col md:flex-row items-center justify-around gap-6">
-                            <CircularGauge percentage={result.percentage} />
-                            
-                            <div className="text-right flex-1">
-                                <h4 className="text-lg font-bold text-slate-100 mb-2">🎉 تم حساب النتيجة بنجاح!</h4>
-                                <p className="text-slate-300 text-sm mb-1">
-                                    المجموع الكلي المكافئ: <span className="text-cyan-400 font-bold">{result.total} / 410</span>
-                                </p>
-                                <p className="text-slate-300 text-sm">
-                                    النسبة المئوية: <span className="text-cyan-400 font-bold">{result.percentage}%</span>
-                                </p>
-                                <div className="mt-4 text-xs text-slate-400 italic">
-                                    * تم حساب الكليات المتاحة بالأسفل بناءً على نسبتك.
-                                </div>
+                        <div className="mt-6">
+                            <label className="tansik-label">
+                                <i className="fas fa-square-poll-vertical"></i> النتيجة النهائية (المجموع الاعتباري)
+                            </label>
+                            <div className="tansik-input-group">
+                                <i className="fas fa-calculator tansik-input-icon"></i>
+                                <input 
+                                    className="tansik-input" 
+                                    type="text" 
+                                    readOnly 
+                                    value={result.total} 
+                                    placeholder="سيتم حساب النتيجة تلقائياً" 
+                                />
                             </div>
+                            <div className="tansik-result-percentage">{result.percentage}%</div>
                         </div>
                     )}
                 </div>
@@ -2042,7 +1870,7 @@
             if (filteredColleges.length === 0) return null;
 
             return (
-                <div className="uni-card p-6 rounded-2xl shadow-lg mb-6 text-right text-white">
+                <div className="uni-card p-6 rounded-2xl shadow-lg mb-6 text-right">
                     <div 
                         className="uni-card-header flex justify-between items-center cursor-pointer"
                         onClick={() => setIsExpanded(!isExpanded)}
@@ -2050,19 +1878,19 @@
                         <div className="flex items-center gap-3">
                             <h3 className="uni-card-title">{university.name}</h3>
                         </div>
-                        <div className="text-cyan-400 text-sm">
+                        <div className="text-sky-600 text-sm">
                             <i className={`fas fa-chevron-${isExpanded ? 'up' : 'down'} text-lg`}></i>
                         </div>
                     </div>
 
                     {isExpanded && (
                         <div className="mt-6 space-y-4">
-                            <div className="flex justify-between items-center bg-slate-900/40 p-3 rounded-lg border border-slate-800 text-xs">
+                            <div className="flex justify-between items-center bg-sky-50/50 p-3 rounded-lg border border-sky-100 text-xs">
                                 <a 
                                     href={university.officialSite} 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
-                                    className="text-cyan-400 hover:underline flex items-center gap-1"
+                                    className="text-sky-600 hover:text-sky-700 font-semibold hover:underline flex items-center gap-1"
                                 >
                                     <span>الموقع الرسمي للجامعة</span>
                                     <i className="fas fa-external-link-alt text-[10px]"></i>
@@ -2070,63 +1898,42 @@
                                 <span className="text-slate-400">آخر تحديث: يونيو 2025</span>
                             </div>
 
-                            <div className="uni-college-grid mt-4">
+                            <div className="uni-college-list-scroll mt-4">
                                 {filteredColleges.map((college, idx) => {
                                     const hasUserScore = userPercentage !== null;
                                     const minVal = parseFloat(college.minScore);
                                     const userVal = hasUserScore ? parseFloat(userPercentage) : 0;
                                     
-                                    const isEligible = userVal >= minVal;
-                                    const diff = minVal - userVal;
-                                    
-                                    // حساب النسبة المئوية لشريط التقدم
-                                    const progressPercent = hasUserScore 
-                                        ? (isEligible ? 100 : (userVal / minVal) * 100) 
-                                        : 0;
+                                    const isEligible = !hasUserScore || userVal >= minVal;
+                                    const isExactMatch = hasUserScore && Math.abs(userVal - minVal) <= 0.000001;
+                                    const minScore410 = (minVal * 4.1).toFixed(2);
 
                                     return (
                                         <div 
                                             key={idx} 
-                                            className={`uni-college-card p-4 rounded-xl transition duration-300 border ${
-                                                hasUserScore 
-                                                    ? (isEligible 
-                                                        ? 'border-emerald-500/20 bg-emerald-950/10' 
-                                                        : 'border-rose-500/10 bg-slate-900/40')
-                                                    : 'border-slate-800'
+                                            className={`tansik-college-item ${
+                                                isExactMatch 
+                                                    ? 'tansik-exact-match' 
+                                                    : (isEligible 
+                                                        ? 'tansik-highlight' 
+                                                        : 'tansik-not-available')
                                             }`}
                                         >
-                                            <div className="flex justify-between items-start mb-2">
-                                                <span className="uni-college-name font-bold text-slate-100 flex-1">{college.name}</span>
-                                                <span className="uni-college-min-score font-semibold text-xs shrink-0 mr-2">
-                                                    {college.minScore}%
-                                                </span>
+                                            <span className="tansik-college-name">{college.name}</span>
+                                            <div className="flex items-center gap-2">
+                                                {college.fees && (
+                                                    <span className="text-emerald-600 font-bold text-xs bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200/50">
+                                                        {college.fees}
+                                                    </span>
+                                                )}
+                                                <span className="tansik-college-score">{minScore410} درجة ({college.minScore}%)</span>
+                                                {isExactMatch && <span className="text-xs" style={{color: 'var(--exact-match-color)'}}>(تساوي درجتك بالضبط)</span>}
+                                                {hasUserScore && !isEligible && (
+                                                    <span className="tansik-not-available-message">
+                                                        (درجتك لا تكفي لدخول هذه الكلية)
+                                                    </span>
+                                                )}
                                             </div>
-                                            
-                                            {college.fees && (
-                                                <div className="uni-college-fees text-emerald-400 text-xs font-semibold flex items-center gap-1 mt-1">
-                                                    <i className="fas fa-coins text-[10px]"></i>
-                                                    <span>{college.fees} / سنوياً</span>
-                                                </div>
-                                            )}
-
-                                            {hasUserScore && (
-                                                <div className="mt-3">
-                                                    <div className="flex justify-between text-[10px] text-slate-400 mb-1">
-                                                        <span>
-                                                            {isEligible 
-                                                                ? "مؤهل للقبول 🎉" 
-                                                                : `متبقي ${diff.toFixed(2)}%`}
-                                                        </span>
-                                                        <span>تطابق النسبة</span>
-                                                    </div>
-                                                    <div className="uni-progress-bar">
-                                                        <div 
-                                                            className={`uni-progress-bar-fill ${isEligible ? 'bg-emerald-500' : 'bg-amber-500'}`}
-                                                            style={{ width: `${progressPercent}%` }}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            )}
                                         </div>
                                     );
                                 })}
@@ -2160,22 +1967,22 @@
             return (
                 <div className="uni-container py-6">
                     {/* رأس الصفحة */}
-                    <div className="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+                    <div className="flex justify-between items-center mb-8 border-b border-slate-200 pb-4">
                         <button
                             onClick={() => window.showMainCalculator()}
-                            className="bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-400 border border-cyan-500/20 px-4 py-2 rounded-full text-sm font-semibold transition duration-300 flex items-center gap-2"
+                            className="bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 px-4 py-2 rounded-full text-sm font-semibold transition duration-300 flex items-center gap-2"
                         >
                             <i className="fas fa-arrow-right"></i>
                             <span>العودة للتنسيق الحكومي</span>
                         </button>
-                        <div className="bg-cyan-500/10 text-cyan-400 text-xs px-3 py-1 rounded-full font-bold">
+                        <div className="bg-sky-100 text-sky-800 text-xs px-3 py-1 rounded-full font-bold">
                             الجامعات الأهلية 2025
                         </div>
                     </div>
 
                     <header className="text-center mb-10">
-                        <h1 className="text-3xl font-extrabold text-cyan-400 tracking-tight"><i className="fas fa-school opacity-40 ml-2"></i>دليل وتنسيق الجامعات الأهلية</h1>
-                        <p className="text-slate-400 mt-2 text-sm max-w-lg mx-auto">
+                        <h1 className="text-3xl font-extrabold text-sky-800 tracking-tight"><i className="fas fa-school opacity-40 ml-2"></i>دليل وتنسيق الجامعات الأهلية</h1>
+                        <p className="text-slate-500 mt-2 text-sm max-w-lg mx-auto">
                             احسب مجموعك الاعتباري واكتشف الكليات المتاحة لك بالجامعات الأهلية ومصروفاتها الدراسية المحدثة.
                         </p>
                     </header>
@@ -2189,7 +1996,7 @@
 
                     {/* فلاتر التصفية */}
                     <div className="mb-6">
-                        <h2 className="text-xl font-bold text-cyan-400 mb-4 text-right">
+                        <h2 className="text-xl font-bold text-sky-800 mb-4 text-right">
                             <i className="fas fa-filter text-sm ml-2"></i> تصفية حسب التخصص الدراسي:
                         </h2>
                         <div className="filter-tags-container">
@@ -2208,7 +2015,7 @@
 
                     {/* قائمة الجامعات */}
                     <div className="space-y-6 mt-6">
-                        <h2 className="text-2xl font-bold text-cyan-400 mb-4 text-right"><i className="fas fa-university opacity-40 ml-2"></i>دليل الجامعات الأهلية ومصروفاتها:</h2>
+                        <h2 className="text-2xl font-bold text-sky-800 mb-4 text-right"><i className="fas fa-university opacity-40 ml-2"></i>دليل الجامعات الأهلية ومصروفاتها:</h2>
                         
                         {universitiesData.map((uni, index) => (
                             <UniversityCard 
@@ -2221,10 +2028,10 @@
                     </div>
 
                     {/* تذييل الصفحة */}
-                    <footer className="text-center mt-12 text-slate-500 text-sm border-t border-slate-800 pt-6">
+                    <footer className="text-center mt-12 text-slate-400 text-sm border-t border-slate-200 pt-6">
                         <p>تم جمع البيانات الرسمية من شؤون الطلاب بالجامعات - آخر تحديث: يونيو 2025</p>
-                        <div className="mt-4 p-3 bg-cyan-950/20 rounded-xl border border-cyan-950/30 inline-block text-cyan-400 text-xs font-semibold">
-                            ⚠️ باقي الجامعات الأهلية والخاصة سيتم إضافتها تباعاً!
+                        <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl inline-block text-amber-800 text-xs font-semibold">
+                            ⚠️ باقي الجامعات الأهلية والخاصة سيتم إضافتها قريباً!
                         </div>
                     </footer>
                 </div>
